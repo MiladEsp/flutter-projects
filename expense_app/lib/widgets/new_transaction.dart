@@ -29,7 +29,7 @@ class _NewTransactionState extends State<NewTransaction> {
     widget.addTx(_enteredTitle, _enteredAmount,
         _selectedDate); //widget. accesses the property from the NewTransaction class
 
-    //Navigator.of(context).pop(); // close the modal sheet
+    Navigator.of(context).pop(); // close the modal sheet after entering all the info
   }
 
   void _presentDatePicker() {

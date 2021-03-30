@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:expense_app/widgets/new_transaction.dart';
 import 'package:flutter/material.dart';
 

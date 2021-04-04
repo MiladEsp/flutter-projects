@@ -112,6 +112,57 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  List<Widget> _buildLandscapeContent(
+    MediaQueryData mediaQuery,
+    AppBar appBar,
+    Widget txListWidget,
+  ) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text('Show Chart', style: Theme.of(context).textTheme.headline6),
+          Switch.adaptive(
+            // to adjust Switch based on platform
+            value: _chartVisibility,
+            onChanged: (val) {
+              setState(() {
+                _chartVisibility = val;
+              });
+            },
+          ),
+        ],
+      ),
+      _chartVisibility
+          ? Container(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.6, // padding used to get the status bar size
+              child: Chart(_recentTransaction),
+            )
+          : txListWidget,
+    ];
+  }
+
+  List<Widget> _buildPortraitContent(
+    MediaQueryData mediaQuery,
+    AppBar appBar,
+    Widget txListWidget,
+  ) {
+    return [
+      Container(
+        // no curly braces for the if
+        height: (mediaQuery.size.height -
+                appBar.preferredSize.height -
+                mediaQuery.padding.top) *
+            0.3, // padding used to get the status bar size
+        child: Chart(_recentTransaction),
+      ),
+      txListWidget,
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -160,42 +211,17 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Show Chart',
-                      style: Theme.of(context).textTheme.headline6),
-                  Switch.adaptive(
-                    // to adjust Switch based on platform
-                    value: _chartVisibility,
-                    onChanged: (val) {
-                      setState(() {
-                        _chartVisibility = val;
-                      });
-                    },
-                  ),
-                ],
-              ),
+              ..._buildLandscapeContent(
+                mediaQuery,
+                appBar,
+                txListWidget,
+              ), // ... is the spread operator for lists
             if (!isLandscape)
-              Container(
-                // no curly braces for the if
-                height: (mediaQuery.size.height -
-                        appBar.preferredSize.height -
-                        mediaQuery.padding.top) *
-                    0.3, // padding used to get the status bar size
-                child: Chart(_recentTransaction),
+              ..._buildPortraitContent(
+                mediaQuery,
+                appBar,
+                txListWidget,
               ),
-            if (!isLandscape) txListWidget,
-            if (isLandscape)
-              _chartVisibility
-                  ? Container(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.6, // padding used to get the status bar size
-                      child: Chart(_recentTransaction),
-                    )
-                  : txListWidget,
           ],
         ),
       ),

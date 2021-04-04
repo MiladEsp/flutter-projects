@@ -34,14 +34,17 @@ class TransactionList extends StatelessWidget {
               ],
             );
           })
-        : ListView.builder(
-            itemBuilder: (ctx, index) {
-              return TransactionItem(
-                transaction: transactions[index],
-                deleteTx: deleteTx,
-              );
-            },
-            itemCount: transactions.length,
+        : ListView(
+            children: transactions
+                .map((tx) => TransactionItem(
+                      // added at the top most level inside the list view where state between items might get messed up
+                      // mainly  needed with stateful widgets that handle their states internally
+                      key: ValueKey(tx
+                          .id), // UniqueKey won't work since it's called everytime listview is updated
+                      transaction: tx,
+                      deleteTx: deleteTx,
+                    ))
+                .toList(),
           );
   }
 }

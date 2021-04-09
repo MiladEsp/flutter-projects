@@ -30,13 +30,11 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.bold,
             )),
       ),
-      //home: CategoriesScreen(),
       initialRoute: '/', // this is the default
       routes: {
         '/': (ctx) => TabsScreen(),
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
         MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
-        //TabsScreen.routeName: (ctx) => TabsScreen(),
       },
       // onGenerateRoute: (settings) {
       //   return MaterialPageRoute(

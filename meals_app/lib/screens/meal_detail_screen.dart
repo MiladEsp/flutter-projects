@@ -86,6 +86,13 @@ class MealDetailScreen extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.delete),
+        onPressed: () {
+          Navigator.of(context)
+              .pop(mealId); // remove page from top of the stack
+        },
+      ),
     );
   }
 }

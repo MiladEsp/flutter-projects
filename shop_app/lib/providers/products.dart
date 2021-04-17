@@ -46,6 +46,10 @@ class Products with ChangeNotifier {
     // about the state change. That's why we return a copy.
   }
 
+  List<Product> get favoriteItems {
+    return _items.where((prodItem) => prodItem.isFavorite).toList();
+  }
+
   void addProduct() {
     //_items.add();
     notifyListeners();

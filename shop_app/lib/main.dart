@@ -11,6 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
+      // if an object is constructed and then passed to the ChangeNotifier,
+      // the create method is suggested. If an item already exists, use .value
       create: (ctx) => Products(), // instance the provider class
       child: MaterialApp(
         title: 'MyShop',

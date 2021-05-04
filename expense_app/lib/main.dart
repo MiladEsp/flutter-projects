@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // not using CupertinoApp since it's limited. will themse whenever necessary
+      // not using CupertinoApp since it's limited. will theme whenever necessary
       title: 'Personal Expenses',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
